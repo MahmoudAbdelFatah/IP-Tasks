@@ -22,7 +22,7 @@ function varargout = simple_gui(varargin)
 
 % Edit the above text to modify the response to help simple_gui
 
-% Last Modified by GUIDE v2.5 10-Oct-2017 23:00:13
+% Last Modified by GUIDE v2.5 11-Oct-2017 00:47:12
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -448,7 +448,10 @@ function Gamma_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global img
-gama = str2double(get(handles.gamaVal, 'String'));
+%gama = str2double(get(handles.gamaVal, 'String'));
+gama = get(handles.sliderGama,'Value')
+gama = round(gama);
+disp(gama);
 res = Gama(img, gama);
 axes(handles.axes2);
 imshow(res);
@@ -467,3 +470,25 @@ img2 = imread(filename);
 axes(handles.axes3);
 % Display the image
 imshow(img2);
+
+
+% --- Executes on slider movement.
+function sliderGama_Callback(hObject, eventdata, handles)
+% hObject    handle to sliderGama (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+
+
+% --- Executes during object creation, after setting all properties.
+function sliderGama_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to sliderGama (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
