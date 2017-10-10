@@ -1,0 +1,12 @@
+function result = AddTwoImages(image1, image2)
+
+[H, W, L] = size(image1);
+disp(H);
+disp(W);
+img3 = imresize(image2, [H, W]);
+[HH WW LL] = size(image2);
+disp(HH);
+disp(WW);
+result = image1 + double(img3);
+
+ends

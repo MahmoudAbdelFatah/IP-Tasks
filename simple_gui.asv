@@ -80,9 +80,10 @@ function btnOpenImage_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 % Open the image and save it in the "handles" struct
 global img
+img = uigetfile(fullfile('c:\', '*.bmp'));
+sample_image_folder = fullfile(matlabroot,'toolbox/images/imdata');
 
-file = uigetfile;
-img = imread(file);
+[img,user_canceled] = imgetfile('InitialPath',sample_image_folder)
 % img = imread('Jaguar.bmp');
 % Set current drawing axes to "axes1"
 axes(handles.axes1);
@@ -413,8 +414,11 @@ function add_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global img
-global img2
-res = AddTwoImages(img, img2);
+%img2 = imread('face.bmp');
+%res = AddTwoImages(img, img2);
+[H W L] = size(img);
+disp(H);
+disp(W);
 axes(handles.axes2);
 imshow(res);
 
@@ -460,8 +464,8 @@ function openSecImage_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global img2
-filename = uigetfile;
-img2 = imread(filename);
+img2 = uigetfile(fullfile('c:\', '*.bmp'));
+
 % img = imread('Jaguar.bmp');
 % Set current drawing axes to "axes1"
 axes(handles.axes3);
