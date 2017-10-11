@@ -80,7 +80,10 @@ function btnOpenImage_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 % Open the image and save it in the "handles" struct
 global img
-
+global xx
+global yy
+xx = 1;
+yy = 1;
 file = uigetfile;
 img = imread(file);
 % img = imread('Jaguar.bmp');
@@ -103,7 +106,9 @@ function btnDisplayChannel_Callback(hObject, eventdata, handles)
 % hObject    handle to btnDisplayChannel (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-
+global img
+axes(handles.axes2);
+imshow(img);
 % Call the function 
 
 % Set current drawing axes to "axes2"
@@ -186,10 +191,29 @@ function btnApply_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global img
-R = GeometricLinearTransform(img, 'scale');
+global xx
+global yy
 
+
+if (xx == 1)
+    cursorPoint = get(handles.axes1, 'CurrentPoint');
+    curX = round(cursorPoint(1,1));
+    curY = round(cursorPoint(1,2));
+    xx = curX;
+    yy = curY;
+else 
+cursorPoint1 = get(handles.axes2, 'CurrentPoint');
+curX1 = round(cursorPoint1(1,1));
+curY1 = round(cursorPoint1(1,2));
+%disp(curX);
+%disp(curX1);
+%disp(curY);
+%disp(curY1);
+
+img(curX1, curY1) = img(xx, yy);
+end;
 axes(handles.axes2);
-imshow(R);
+imshow(img);
 
 % Set original "Image" to the "Result" image
 
@@ -292,7 +316,8 @@ global img
 newW = str2double(get(handles.scaleX, 'String'));
 newH = str2double(get(handles.scaleY, 'String'));
 [H, W, L] = size(img) ;
-res = GeometricLinearTransform(img, [newH/H 0 0; 0 newW/W 0; 0 0 1]);
+res = forword(img, [newH/H 0 0; 0 newW/W 0; 0 0 1]);
+%res = GeometricLinearTransform(img, [newH/H 0 0; 0 newW/W 0; 0 0 1]);
 axes(handles.axes2);
 imshow(res);
 
@@ -326,10 +351,13 @@ function rotate_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global img
-angle = str2double(get(handles.txtRotate, 'String'));   
-res = GeometricLinearTransform(img, [cos(angle*(pi/180)) sin(angle*(pi/180)) 0;
+angle = str2double(get(handles.txtRotate, 'String')); 
+res = forword(img, [cos(angle*(pi/180)) sin(angle*(pi/180)) 0;
                                      -sin(angle*(pi/180)) cos(angle*(pi/180)) 0;
                                      0 0 1]);
+%res = GeometricLinearTransform(img, [cos(angle*(pi/180)) sin(angle*(pi/180)) 0;
+%                                     -sin(angle*(pi/180)) cos(angle*(pi/180)) 0;
+%                                     0 0 1]);
 axes(handles.axes2);
 imshow(res);
 
@@ -388,7 +416,8 @@ function shear_Callback(hObject, eventdata, handles)
 global img
 a = str2double(get(handles.txtXShear, 'String'));
 b = str2double(get(handles.txtYShear, 'String'));
-res = GeometricLinearTransform(img, [1 b 0; a 1 0; 0 0 1]);
+res = forword(img, [1 b 0; a 1 0; 0 0 1]);
+%res = GeometricLinearTransform(img, [1 b 0; a 1 0; 0 0 1]);
 axes(handles.axes2);
 imshow(res);
 
@@ -449,7 +478,7 @@ function Gamma_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global img
 %gama = str2double(get(handles.gamaVal, 'String'));
-gama = get(handles.sliderGama,'Value')
+gama = get(handles.sliderGama,'Value');
 gama = round(gama);
 disp(gama);
 res = Gama(img, gama);
