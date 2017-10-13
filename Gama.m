@@ -6,11 +6,9 @@ result = uint8(zeros(H, W, L));
 
 for	x=1:H
     for y=1:W
-        newVal = I(x, y, :) .^ gama;
-        if(newVal > 255)
-            newVal = 255;
-        end;
-        result(x, y, :) = newVal;
+        newVal = double(I(x, y, :)) .^ gama;
+       
+        result(x, y, :) = mod(newVal, 255);
     end
 
 end

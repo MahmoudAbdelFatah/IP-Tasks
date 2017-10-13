@@ -191,29 +191,24 @@ function btnApply_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global img
-global xx
-global yy
+newW = str2double(get(handles.scaleX, 'String'));
+newH = str2double(get(handles.scaleY, 'String'));
+[H, W, L] = size(img) ;
 
 
-if (xx == 1)
-    cursorPoint = get(handles.axes1, 'CurrentPoint');
-    curX = round(cursorPoint(1,1));
-    curY = round(cursorPoint(1,2));
-    xx = curX;
-    yy = curY;
-else 
-cursorPoint1 = get(handles.axes2, 'CurrentPoint');
-curX1 = round(cursorPoint1(1,1));
-curY1 = round(cursorPoint1(1,2));
-%disp(curX);
-%disp(curX1);
-%disp(curY);
-%disp(curY1);
-
-img(curX1, curY1) = img(xx, yy);
-end;
+angle = str2double(get(handles.txtRotate, 'String')); 
+mat = [cos(angle*(pi/180)) sin(angle*(pi/180)) 0;
+                                     -sin(angle*(pi/180)) cos(angle*(pi/180)) 0;
+                                     0 0 1];
+a = str2double(get(handles.txtXShear, 'String'));
+b = str2double(get(handles.txtYShear, 'String'));
+mat =  [1 b 0; a 1 0; 0 0 1] * mat ;
+mat = [double(newH)/double(H) 0 0; 0 double(newW)/double(W) 0; 0 0 1] * mat ;
+%res = forword(img, mat);
+%figure, imshow(res);
+res = GeometricLinearTransform(img, mat);
 axes(handles.axes2);
-imshow(img);
+imshow(res);
 
 % Set original "Image" to the "Result" image
 
@@ -316,8 +311,8 @@ global img
 newW = str2double(get(handles.scaleX, 'String'));
 newH = str2double(get(handles.scaleY, 'String'));
 [H, W, L] = size(img) ;
-res = forword(img, [newH/H 0 0; 0 newW/W 0; 0 0 1]);
-%res = GeometricLinearTransform(img, [newH/H 0 0; 0 newW/W 0; 0 0 1]);
+%res = forword(img, [newH/H 0 0; 0 newW/W 0; 0 0 1]);
+res = GeometricLinearTransform(img, [newH/H 0 0; 0 newW/W 0; 0 0 1]);
 axes(handles.axes2);
 imshow(res);
 
@@ -352,12 +347,12 @@ function rotate_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global img
 angle = str2double(get(handles.txtRotate, 'String')); 
-res = forword(img, [cos(angle*(pi/180)) sin(angle*(pi/180)) 0;
-                                     -sin(angle*(pi/180)) cos(angle*(pi/180)) 0;
-                                     0 0 1]);
-%res = GeometricLinearTransform(img, [cos(angle*(pi/180)) sin(angle*(pi/180)) 0;
+%res = forword(img, [cos(angle*(pi/180)) sin(angle*(pi/180)) 0;
 %                                     -sin(angle*(pi/180)) cos(angle*(pi/180)) 0;
 %                                     0 0 1]);
+res = GeometricLinearTransform(img, [cos(angle*(pi/180)) sin(angle*(pi/180)) 0;
+                                     -sin(angle*(pi/180)) cos(angle*(pi/180)) 0;
+                                     0 0 1]);
 axes(handles.axes2);
 imshow(res);
 
@@ -416,8 +411,8 @@ function shear_Callback(hObject, eventdata, handles)
 global img
 a = str2double(get(handles.txtXShear, 'String'));
 b = str2double(get(handles.txtYShear, 'String'));
-res = forword(img, [1 b 0; a 1 0; 0 0 1]);
-%res = GeometricLinearTransform(img, [1 b 0; a 1 0; 0 0 1]);
+%res = forword(img, [1 b 0; a 1 0; 0 0 1]);
+res = GeometricLinearTransform(img, [1 b 0; a 1 0; 0 0 1]);
 axes(handles.axes2);
 imshow(res);
 
@@ -479,7 +474,6 @@ function Gamma_Callback(hObject, eventdata, handles)
 global img
 %gama = str2double(get(handles.gamaVal, 'String'));
 gama = get(handles.sliderGama,'Value');
-gama = round(gama);
 disp(gama);
 res = Gama(img, gama);
 axes(handles.axes2);
