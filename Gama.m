@@ -5,12 +5,7 @@ function result= Gama(I, gama)
 result = uint16(zeros(H, W, L));
 result = double(result);
 
-for	x=1:H
-    for y=1:W
-        result(x, y, :) = double(I(x, y, :)) ^ gama;
-    end
-
-end
+result = double(I) .^ gama;
 result = Contrast(result, 0, 255);
 end
 
