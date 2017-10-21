@@ -21,11 +21,11 @@ maxy = ceil(max([lax(2,1) lbx(2,1) ray(2,1) rby(2,1)]));
 
 T = [1 0 -minx+1; 0 1 -miny+1; 0 0 1];
 Matrix = T * Matrix;
-disp(T);
-disp(Matrix);
+%disp(T);
+%disp(Matrix);
 result = uint8(zeros(maxx - minx, maxy - miny, L));
-disp(maxx);
-disp(maxy);
+%disp(maxx);
+%disp(maxy);
 
     for	x=1:maxx-minx
         for y=1:maxy-miny

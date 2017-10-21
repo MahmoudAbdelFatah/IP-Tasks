@@ -22,7 +22,7 @@ function varargout = simple_gui(varargin)
 
 % Edit the above text to modify the response to help simple_gui
 
-% Last Modified by GUIDE v2.5 11-Oct-2017 00:47:12
+% Last Modified by GUIDE v2.5 21-Oct-2017 13:00:49
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -515,3 +515,19 @@ function sliderGama_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+
+
+% --- Executes on button press in wrap.
+function wrap_Callback(hObject, eventdata, handles)
+% hObject    handle to wrap (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global img
+P1 = [215 95 660 780 ; 100 295 330 137 ; 1 1 1 1];
+P2 = [1 1 500 500 ; 1 500 500 1 ; 1 1 1 1];
+axes(handles.axes2);
+res = Wrap(img, P1, P2);
+%Display the image
+imshow(res);
+
+
