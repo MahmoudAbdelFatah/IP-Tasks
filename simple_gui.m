@@ -106,9 +106,8 @@ function btnDisplayChannel_Callback(hObject, eventdata, handles)
 % hObject    handle to btnDisplayChannel (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-global img
-axes(handles.axes2);
-imshow(img);
+get(gca,'CurrentPoint')
+disp(gca);
 % Call the function 
 
 % Set current drawing axes to "axes2"
@@ -310,7 +309,7 @@ global img
 %set(handles.scaleX, 'String', get(handles.scaleY, 'String'));
 newW = str2double(get(handles.scaleX, 'String'));
 newH = str2double(get(handles.scaleY, 'String'));
-[H, W, L] = size(img) ;
+[H, W, ~] = size(img) ;
 %res = forword(img, [newH/H 0 0; 0 newW/W 0; 0 0 1]);
 res = GeometricLinearTransform(img, [newH/H 0 0; 0 newW/W 0; 0 0 1]);
 axes(handles.axes2);
@@ -523,11 +522,14 @@ function wrap_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global img
-P1 = [215 95 660 780 ; 100 295 330 137 ; 1 1 1 1];
-P2 = [1 1 500 500 ; 1 500 500 1 ; 1 1 1 1];
+P1 = [100 295 330 137 ; 215 95 660 780 ; 1 1 1 1];
+P2 = [ 1 500 500 1 ; 1 1 500 500 ; 1 1 1 1];
 axes(handles.axes2);
 res = Wrap(img, P1, P2);
 %Display the image
+[H X L] = size(res);
+disp(H);
+disp(X);
 imshow(res);
 
 

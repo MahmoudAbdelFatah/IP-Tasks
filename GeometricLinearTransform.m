@@ -4,7 +4,7 @@ function result= GeometricLinearTransform(I, Matrix)
 %S = [cos(45*(pi/180)) sin(45*(pi/180)) 0; -sin(45*(pi/180)) cos(45*(pi/180)) 0; 0 0 1];
 %S = [1 yShear 0; xShear 1 0; 0 0 1];
 %S = [1.5 0 0; 0 1.5 0; 0 0 1];
-disp(pi);
+%disp(pi);
 
 [H, W, L] = size(I) ;
 
@@ -23,9 +23,12 @@ T = [1 0 -minx+1; 0 1 -miny+1; 0 0 1];
 Matrix = T * Matrix;
 %disp(T);
 %disp(Matrix);
+
 result = uint8(zeros(maxx - minx, maxy - miny, L));
-%disp(maxx);
-%disp(maxy);
+disp(maxx);
+disp(maxy);
+disp(minx);
+disp(miny);
 
     for	x=1:maxx-minx
         for y=1:maxy-miny
