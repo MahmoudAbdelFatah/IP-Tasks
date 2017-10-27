@@ -90,7 +90,7 @@ img = imread(file);
 % Set current drawing axes to "axes1"
 axes(handles.axes1);
 % Display the image
-imshow(cropedimg);
+imshow(img);
 % Save the handles structure.
 
 
