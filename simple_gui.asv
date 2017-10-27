@@ -90,7 +90,7 @@ img = imread(file);
 % Set current drawing axes to "axes1"
 axes(handles.axes1);
 % Display the image
-imshow(cropedimg);
+imshow(img);
 % Save the handles structure.
 
 
@@ -523,6 +523,8 @@ function wrap_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global img
 P1 = [100 295 330 137 ; 215 95 660 780 ; 1 1 1 1];
+
+cropedimg = img100:95, 330:780, 0:end];
 P2 = [ 1 500 500 1 ; 1 1 500 500 ; 1 1 1 1];
 axes(handles.axes2);
 res = Wrap(img, P1, P2);

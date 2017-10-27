@@ -11,6 +11,8 @@ disp(W);
 P1 = [ 100 295 330 137 ;215 95 660 780 ; 1 1 1 1];
 k = W * P1;
 disp(k);
-result = GeometricLinearTransform(I1, W);
+ cropedimg = I1(100:330, 95:780, :);
+%  imshow(cropedimg);
+result = GeometricLinearTransform(cropedimg, W);
 
 end
