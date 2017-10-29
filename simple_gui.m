@@ -522,8 +522,8 @@ function wrap_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global img
-P1 = [100 295 330 137 ; 215 95 660 780 ; 1 1 1 1];
-P2 = [ 1 500 500 1 ; 1 1 500 500 ; 1 1 1 1];
+P1 = [100 295 330 137; 215 95 660 780];
+P2 = [ 1 500 500 1; 1 1 500 500];
 axes(handles.axes2);
 res = Warp(img, P1, P2);
 %Display the image
