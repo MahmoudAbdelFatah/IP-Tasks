@@ -525,7 +525,7 @@ global img
 P1 = [100 295 330 137 ; 215 95 660 780 ; 1 1 1 1];
 P2 = [ 1 500 500 1 ; 1 1 500 500 ; 1 1 1 1];
 axes(handles.axes2);
-res = Wrap(img, P1, P2);
+res = Warp(img, P1, P2);
 %Display the image
 [H X L] = size(res);
 disp(H);
