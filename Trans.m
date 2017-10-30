@@ -24,7 +24,7 @@ maxy = ceil(max([lax(2,1) lbx(2,1) ray(2,1) rby(2,1)]));
 % %disp(T);
 %disp(Matrix);
 
-result = uint8(ones(maxx - minx, maxy - miny, L));
+result = uint8(ones(H, W, L));
 disp(maxx);
 disp(maxy);
 disp(minx);
