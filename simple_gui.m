@@ -546,6 +546,9 @@ function FixTrans_Callback(hObject, eventdata, handles)
 global img
 global img2
 res = FixTrans(img, img2);
+wrongAns = Correct(rgb2gray(img), res);
+msgbox(strcat('Number of wrong answers = ',num2str(wrongAns)));
+
 axes(handles.axes2);
 imshow(res);
 
