@@ -22,7 +22,7 @@ function varargout = simple_gui(varargin)
 
 % Edit the above text to modify the response to help simple_gui
 
-% Last Modified by GUIDE v2.5 21-Oct-2017 13:00:49
+% Last Modified by GUIDE v2.5 30-Oct-2017 13:49:44
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -523,17 +523,30 @@ function wrap_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 global img
 
-P1 = [70 335 280 12; 16 133 280 167];
-P2 = [1 500 500 1; 1 1 500 500];
+res = Align(img, 300, 390);
 
 % P1 = [100 295 330 137; 215 95 660 780];
 % P2 = [ 1 500 500 1; 1 1 500 500];
 axes(handles.axes2);
-res = Warp(img, P1, P2);
+% res = Warp(img, P1, P2);
 %Display the image
 [H X L] = size(res);
 disp(H);
 disp(X);
+imshow(res);
+
+
+
+
+% --- Executes on button press in FixTrans.
+function FixTrans_Callback(hObject, eventdata, handles)
+% hObject    handle to FixTrans (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global img
+global img2
+res = FixTrans(img, img2);
+axes(handles.axes2);
 imshow(res);
 
 
