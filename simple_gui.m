@@ -22,7 +22,7 @@ function varargout = simple_gui(varargin)
 
 % Edit the above text to modify the response to help simple_gui
 
-% Last Modified by GUIDE v2.5 31-Oct-2017 16:52:11
+% Last Modified by GUIDE v2.5 01-Nov-2017 01:30:01
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -310,6 +310,7 @@ global img
 newW = str2double(get(handles.scaleX, 'String'));
 newH = str2double(get(handles.scaleY, 'String'));
 [H, W, ~] = size(img) ;
+% J = imresize(I,1.25); try in scale
 %res = forword(img, [newH/H 0 0; 0 newW/W 0; 0 0 1]);
 res = GeometricLinearTransform(img, [newH/H 0 0; 0 newW/W 0; 0 0 1]);
 axes(handles.axes2);
@@ -522,6 +523,7 @@ function wrap_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 global img
+%for chess picture
 p1 = [100 295 330 137; 215 95 660 780];
 p2 = [ 1 500 500 1; 1 1 500 500];
 axes(handles.axes2);
@@ -540,10 +542,11 @@ global img
 global img2
 res = FixTrans(img, img2);
 wrongAns = Correct(rgb2gray(img), res);
-msgbox(strcat('Number of wrong answers = ',num2str(wrongAns)));
 
 axes(handles.axes2);
 imshow(res);
+msgbox(strcat('Number of wrong answers =  ',num2str(wrongAns)));
+
 
 % --- Executes on button press in align.
 function align_Callback(hObject, eventdata, handles)
@@ -556,3 +559,40 @@ H = str2double(get(handles.scaleY, 'String'));
 axes(handles.axes2);
 res=Align(img, W, H);
 imshow(res);
+
+
+% --- Executes on button press in extractLandMarks.
+function extractLandMarks_Callback(hObject, eventdata, handles)
+% hObject    handle to extractLandMarks (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global img
+len = str2num(get(handles.textLen, 'String'));
+[Endpoints, ShortRidges] = ExtractLandmarks(img, len);
+
+
+
+
+
+
+
+function textLen_Callback(hObject, eventdata, handles)
+% hObject    handle to textLen (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'String') returns contents of textLen as text
+%        str2double(get(hObject,'String')) returns contents of textLen as a double
+
+
+% --- Executes during object creation, after setting all properties.
+function textLen_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to textLen (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end

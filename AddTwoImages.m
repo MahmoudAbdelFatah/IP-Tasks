@@ -1,6 +1,6 @@
 function result = AddTwoImages(image1, image2)
 
-[H W L] = size(image1);
+[H, W, L] = size(image1);
 img3 = imresize(image2, [H W]);
 result = uint16(zeros(H, W, L));
 result = double(result);
