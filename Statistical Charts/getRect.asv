@@ -10,7 +10,7 @@ I = imsharpen(I,'Radius',1,'Amount',1.8);
 h = fspecial('disk', 1);
 I= imfilter(I,h,'circular');
 
-% figure, imshow(I);
+figure, imshow(I);
 % threshold = graythresh(I);
 b = im2bw(I);
 b = ~b;
@@ -25,14 +25,10 @@ for i=1:size(s, 1)
             pos = s(i).BoundingBox;
         end
 end
- 
-img = imcrop(im,pos);
-%  img =im(pos(1,1):p
-% img = rgb2gray(img);
-% img =cat(3, img(:,:,1), img(:,:,2), img(:,:,3));
-%  img = img(5:end-5, 5:end-5, 5:end-5);
-% figure, imshow(img, [0 255]);
-% img = gray2
-
+% img = imcrop(I, pos);
+ img = im(pos(1,1):pos(1,1)+pos(1,3)  , pos(1,1):pos(1,1)+pos(1,3)  , pos(1,1):pos(1,1)+pos(1,3));
+img = img(5:end-5, 5:end-5);
+figure, imshow(img);
+img = gray2
 end
 

@@ -1,4 +1,4 @@
-function [rgbImage] = LabelObject( image , rgbImage  )
+function [rgbImage , pixelColor] = LabelObject( image , rgbImage  )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
