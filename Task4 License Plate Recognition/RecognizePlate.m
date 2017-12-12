@@ -126,7 +126,7 @@ for i = 1 : endSize
         
    end
 end
-msgbox(strcat('the numbers on the plate :',Digits));
+msgbox(strcat('the numbers on the plate : ',Digits));
 
 end
 
