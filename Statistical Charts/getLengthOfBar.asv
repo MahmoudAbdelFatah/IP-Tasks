@@ -1,0 +1,13 @@
+function [ length ] = getLengthOfBar(objectImage)
+%UNTITLED15 Summary of this function goes here
+%   Detailed explanation goes here
+length =0;
+
+[MaxX , MinX , MaxY , MinY] = getfourCornersOfRectangle(objectImage);
+ 
+  
+ length = MaxY - MinY ;
+  figure, imshow(insertMarker(objectImage,[MaxY , Min));
+ 
+end
+

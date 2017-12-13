@@ -1,11 +1,12 @@
 function runStatisticalChartsProgram( image )
 %UNTITLED14 Summary of this function goes here
 %   Detailed explanation goes here
-[colors, ratios , isBar] = Edgebased(image, Median_filter(image));
+[colors, ratios , ~] = Edgebased(image, Median_filter(image));
   rectangleImage = getRect(image) ; 
-    if (~isBar)
-      [points] = getListOfPointObjects(rectangleImage,colors) ;
-       showChartResult(rgb2gray(rectangleImage),points ,ratios);
-    end
+  
+   [points] = getListOfPointObjects(rectangleImage,colors) ;
+    
+   showChartResult(rectangleImage,points ,ratios);  
+     
 end
 

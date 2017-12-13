@@ -1,12 +1,13 @@
-function [ mini ] = getUpperLinePosition(I)
+function [ mini, val ] = getUpperLinePosition(I)
 %GETUPPERLINEPOSITION Summary of this function goes here
 %   Detailed explanation goes here
 % take RGB image
 % return the min i with longest line 
 
-%   I = imread('1.png');
+%   I = imread('3.png');
 % imshow(I)
 I = rgb2gray(I);
+imm = I;
 h = fspecial('sobel');
 I= imfilter(I,h,'replicate');
 BW = edge(I,'canny');
@@ -42,5 +43,15 @@ end
 % highlight the longest line segment
 % plot(xy_long(:,1),xy_long(:,2),'LineWidth',2,'Color','red');
 mini = xy_long(1, 2);
+mm = imm(xy_long(1,2)-10:xy_long(1,2)+10, 1:xy_long(1,1)-2);
+imgBW = im2bw(mm, 0.5);
+imshow(imgBW);
+imgBW = ~imgBW;
+%  imgBW = imerode(imgBW,ones(1,1));
+%    imgBW = imdilate(imgBW,ones(3,3));
+imshow(imgBW);
+ocrResults = ocr(imgBW, 'TextLayout', 'Block');
+words = ocrResults.Words;
+val = str2double(words(1));
 end
 

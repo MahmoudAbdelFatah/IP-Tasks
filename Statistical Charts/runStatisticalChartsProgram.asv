@@ -3,8 +3,10 @@ function runStatisticalChartsProgram( image )
 %   Detailed explanation goes here
 [colors, ratios , isBar] = Edgebased(image, Median_filter(image));
   rectangleImage = getRect(image) ; 
-    if (~isBar)
-      [points] = getListOfPointObjects(rectangleImage,colors) ; 
-    end
+  
+   [points] = getListOfPointObjects(rectangleImage,colors) ;
+   
+   showChartResult(rectangleImage,points ,ratios);  
+     
 end
 

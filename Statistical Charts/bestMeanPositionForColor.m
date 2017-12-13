@@ -3,7 +3,7 @@ function [bestPosition] = bestMeanPositionForColor(rectImage , mean)
 %   Detailed explanation goes here
 [h,w]= size(rectImage) ;
 bestDistance = intmax('int64') ; 
-bestMean =0 ; 
+bestMean = 0 ; 
 bestPosition = [0 0] ;  
 for i=1 : h 
    for j=1 : w 
