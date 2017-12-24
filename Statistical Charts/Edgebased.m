@@ -21,7 +21,7 @@ BW = ~BW;
  
 
 % Display objects
-[h w] = size(image);
+[h, w, ~] = size(image);
 smallRatio = h*w*0.002;
 bigRatio =   h*w*0.2 ; 
 for i=2:no_objects
@@ -43,18 +43,20 @@ for i=2:no_objects
       end
     end
 
-  if(isBar)
-   ratios(objectNumber) = double(getLengthOfBar(d)/barLength) ;
-  else
-      ratios(objectNumber) = double(getNumberOfPixel(Out)) ;
-  end
+
    [Out, color] = LabelObject(image,uint8( d) ); 
   colors(objectNumber,1) = color(:,:,1) ;
   colors(objectNumber,2) = color(:,:,2) ;
   colors(objectNumber,3) = color(:,:,3) ;
+    if(isBar)
+        ratios(objectNumber) = double(getLengthOfBar(d)/barLength) ;
+    else
+        ratios(objectNumber) = double(getNumberOfPixel(Out)) ;
+    end
 %   objects(objectNumber,:,:,:)= Out; 
   objectNumber = objectNumber + 1 ; 
   imwrite(Out,name) ;
+  
 end
 if(isBar)
     ratios = double(ratios*MaxValue) ;

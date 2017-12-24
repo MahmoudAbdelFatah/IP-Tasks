@@ -1,0 +1,117 @@
+function [Digits] = RecognizeNumber(InputImage)
+
+img2 = im2bw(InputImage);
+imgProp = regionprops(img2,'BoundingBox','Image');
+
+im0=im2bw(imresize(imread('0.jpg'),[16,16]), 0.5);
+im1=im2bw(imresize(imread('1.png'),[16,16]), 0.5);
+im11=im2bw(imresize(imread('1.jpg'),[16,16]), 0.5);
+im2=im2bw(imresize(imread('2.jpg'),[16,16]), 0.5);
+im3=im2bw(imresize(imread('3.jpg'),[16,16]), 0.5);
+im4=im2bw(imresize(imread('4.jpg'),[16,16]), 0.5);
+im5=im2bw(imresize(imread('5.jpg'),[16,16]), 0.5);
+im6=im2bw(imresize(imread('6.jpg'),[16,16]), 0.5);
+im7=im2bw(imresize(imread('7.jpg'),[16,16]), 0.5);
+im8=im2bw(imresize(imread('8.jpg'),[16,16]), 0.5);
+im9=im2bw(imresize(imread('9.jpg'),[16,16]), 0.5);
+
+im=im2bw(imresize(imread('cmr.PNG'),[16,16]), 0.5);
+
+cnt=0;
+Digits='';
+endSize = size(imgProp);
+for i = 1 : endSize
+    this = imgProp(i).BoundingBox;
+    figure, imshow(~imgProp(i).Image);
+    if(this(3)>=2 &&this(4)>=30 && this(3)<=100 &&this(4)<=300)
+        temp = ~imgProp(i).Image; 
+        temp=imresize(temp,[16,16]);
+        imwrite(temp,'temp.bmp');
+        imgTest =imread('temp.bmp');
+        img = imabsdiff(im,imgTest);
+        img =~img;
+        figure ,imshow(img);
+        figure ,imshow(imgTest);
+        figure, imshow(im1);
+        rectangle('position',this,'EdgeColor','r');
+        minDiff = sum(img(:));
+        cnt=cnt+1;
+    if cnt==1 || cnt==2 || cnt==3
+        img = imabsdiff(im0,imgTest);
+        imshow(img);
+        if(sum(img(:))<minDiff)
+        minDiff= sum(img(:));
+        ch='0';
+        end
+        
+        img = imabsdiff(im1,imgTest);
+        if(sum(img(:))<minDiff)
+        minDiff= sum(img(:));
+        ch='1';
+        end
+        
+        img = imabsdiff(im11,imgTest);
+        if(sum(img(:))<minDiff)
+        minDiff= sum(img(:));
+        ch='1';
+        end
+        
+        img = imabsdiff(im2,imgTest);
+        if(sum(img(:))<minDiff)
+        minDiff= sum(img(:));
+        ch='2';
+        end
+        
+        img = imabsdiff(im3,imgTest);
+        if(sum(img(:))<minDiff)
+        minDiff= sum(img(:));
+        ch='3';
+        end
+        
+        img = imabsdiff(im4,imgTest);
+        if(sum(img(:))<minDiff)
+        minDiff= sum(img(:));
+        ch='4';
+        end
+        
+        img = imabsdiff(im5,imgTest);
+        if(sum(img(:))<minDiff)
+        minDiff= sum(img(:));
+        ch='5';
+        end
+        
+        img = imabsdiff(im6,imgTest);
+        if(sum(img(:))<minDiff)
+        minDiff= sum(img(:));
+        ch='6';
+        end
+        
+        img = imabsdiff(im7,imgTest);
+        if(sum(img(:))<minDiff)
+        minDiff= sum(img(:));
+        ch='7';
+        end
+        
+        img = imabsdiff(im8,imgTest);
+        if(sum(img(:))<minDiff)
+        minDiff= sum(img(:));
+        ch='8';
+        end
+        
+        img = imabsdiff(im9,imgTest);
+        if(sum(img(:))<minDiff)
+        minDiff= sum(img(:));
+        ch='9';
+        end
+        
+        Digits=strcat(Digits,ch);
+    end
+        
+   end
+end
+msgbox(strcat('the numbers is: ',Digits));
+
+end
+
+
+
