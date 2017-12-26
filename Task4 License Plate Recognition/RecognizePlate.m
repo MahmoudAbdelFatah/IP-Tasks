@@ -20,6 +20,7 @@ imshow(img3);
 img3 = bwareaopen(img3, 700);
 imshow(img3);
 
+img3 = imdilate(img3,ones(13,13));
 img4 = imfill(img3,'holes');
 imshow(img4);
 

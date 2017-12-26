@@ -7,42 +7,62 @@ M = 0;
 E = 0;
 V = 0;
 thresh = 0.0;
+
 for i=1:H
    for j=1:W
-      if(InputImage(i,j, 1)>= 230 && InputImage(i,j, 1)<= 255 && InputImage(i,j, 2)>= 160 && InputImage(i,j, 2)<= 210 && InputImage(i,j, 3)>= 0 && InputImage(i,j, 3)<= 20) 
+      if(InputImage(i,j, 1)>= 130 && InputImage(i,j, 1)<= 255 && InputImage(i,j, 2)>= 90 && InputImage(i,j, 2)<= 150 && InputImage(i,j, 3)>= 0 && InputImage(i,j, 3)<= 70) 
           M = M+1;
       end
       
-      if(InputImage(i,j, 1)>= 220 && InputImage(i,j, 1)<= 230 && InputImage(i,j, 2)>= 240 && InputImage(i,j, 2)<= 250 && InputImage(i,j, 3)>= 0 && InputImage(i,j, 3)<= 10) 
+      if(InputImage(i,j, 1)>= 150 && InputImage(i,j, 1)<= 230 && InputImage(i,j, 2)>= 150 && InputImage(i,j, 2)<= 250 && InputImage(i,j, 3)>= 10 && InputImage(i,j, 3)<= 30) 
           E = E+1;
       end
       
-      if(InputImage(i,j, 1)>= 190 && InputImage(i,j, 1)<= 250 && InputImage(i,j, 2)>= 65 && InputImage(i,j, 2)<= 120 && InputImage(i,j, 3)>= 55 && InputImage(i,j, 3)<= 95) 
+      if(InputImage(i,j, 1)>= 130 && InputImage(i,j, 1)<= 250 && InputImage(i,j, 2)>= 50 && InputImage(i,j, 2)<= 120 && InputImage(i,j, 3)>= 40 && InputImage(i,j, 3)<= 95) 
           V = V+1;
       end
    end
 end
-img = rgb2gray(InputImage);
+% img = InputImage;
+%  InputImage = InputImage+20;
+ img = rgb2gray(InputImage);
 if V > E && V > M
-    Vendor = 0;
-    thresh = 0.87;
+    Vendor = 'vodafone';
     img = imgaussfilt(img,2);
 elseif E > V && E > M
-    Vendor = 1;
-    thresh = 0.9;
-    img = imgaussfilt(img,2);
+    Vendor = 'etisalat';
+    img = imgaussfilt(img,3);
 else
-    Vendor = 2;
-    thresh = 0.8;
-img = imgaussfilt(img,1);
+    Vendor = 'mobinil';
+img = imgaussfilt(img,2);
 end
 disp(Vendor);
+% r = img(:, :, 1);
+% g = img(:, :, 2);
+% b = img(:, :, 3);
+% figure, imhist(r);
+% figure, imhist(g);
+% figure, imhist(b);
+figure, imshow(img);
+% figure, imhist(img);
+count = 0.2;
+for i=1:15
+    bb = im2bw(img, count);
+%     figure, imshow(bb);
+        b = length(find(bb==0));
+    count = count + 0.05;
+    if b > 0.50*size(bb, 1)*size(bb, 2)
+       thresh =  count;
+       break;
+    end
+end
 
-
+% figure, imshow(img);
 img = im2bw(img, thresh);
-figure, imshow(img);
+%   img = ~img;
+% figure, imshow(img);
 img = imdilate(img,ones(6,6));
-figure, imshow(img);
+% figure, imshow(img);
 [L, num] = bwlabel(img);
 disp(num);
 count = uint32(zeros([num 2]));

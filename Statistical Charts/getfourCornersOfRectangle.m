@@ -6,10 +6,12 @@ MaxX = 1 ;
 MaxY = 1 ; 
 MinX = w ; 
 MinY = h ; 
-
+% figure , imshow(image);
+% imwrite(image ,'corners.jpg'); 
 for i=1 :h 
     for j=1: w 
-      if(image(i,j)~= 0 )
+%         image(i,j)
+      if(image(i,j,1)~= 0 || image(i,j,2)~= 0||image(i,j,3)~= 0)
 %           image(i,j) = 255 ; 
           if(j > MaxX )
               MaxX = j ;
@@ -35,7 +37,7 @@ image(MinX+1 , MinY )= 255 ;
 image(MaxX , MinY )= 255 ;  
 image(MinX , MaxY )= 255 ;  
 image(MaxX , MaxY )= 255 ;  
-imwrite(image ,'corners.jpg'); 
+% imwrite(image ,'corners.jpg'); 
 
 end
 

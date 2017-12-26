@@ -10,6 +10,7 @@ ratio = double (double(NumbersOfpixelAtTheObject ) / double(Area));
 if( ratio > 0.8 )
     bool = true ; 
 end
+% figure, imshow(insertMarker(insertMarker(insertMarker(insertMarker(objectImage ,[maxx , miny]) ,[minx , miny]) ,[maxx , maxy]) ,[minx , maxy]));
 
 end
 

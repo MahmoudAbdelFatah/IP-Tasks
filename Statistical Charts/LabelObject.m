@@ -8,7 +8,7 @@ greenChannel = rgbImage(:, :, 2);
 blueChannel = rgbImage(:, :, 3);
 % Find pixels that are pure black - black in all 3 channels.
 blackPixels = redChannel ~= 0 | greenChannel  ~= 0 | blueChannel  ~= 0;
-% Make red (255,0,0)
+ 
 position = getPositionObject(blackPixels) ; 
 pixelColor = getObjectColor(image , position);
 

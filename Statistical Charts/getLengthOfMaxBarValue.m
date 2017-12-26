@@ -3,6 +3,6 @@ function [ length ,MaxValue ] = getLengthOfMaxBarValue(objectImage,image)
 %   Detailed explanation goes here
   MaxY = getBottomLinePosition(objectImage);
   [MinY,MaxValue] = getUpperLinePosition(image);
-   length = MaxY - MinY ;
+   length = abs(MaxY - MinY) ;
 end
 
